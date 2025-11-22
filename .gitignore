@@ -2,4 +2,4 @@ models_rl
 logs
 wandb
 __pycache__
-.vscode
+.vscodevenv/

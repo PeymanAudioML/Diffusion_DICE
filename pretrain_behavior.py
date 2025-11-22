@@ -20,7 +20,7 @@ def train_behavior(args, score_model, data_loader):
     datas = datas_()
     n_epochs = 600
     tqdm_epoch = tqdm.trange(0, n_epochs)
-    save_interval = 100
+    save_interval = 10  # Save every 10 epochs for faster testing
     
     optimizer = torch.optim.Adam(score_model.parameters(), lr=1e-4)
 
@@ -51,7 +51,7 @@ def train_behavior(args, score_model, data_loader):
 def main(args):
     # The diffusion behavior training pipeline is copied directly from https://github.com/ChenDRAG/CEP-energy-guided-diffusion/blob/main/Offline_RL_2D/train_behavior.py
     if not os.path.exists("./models_rl"):
-        os.makedirs(dir)
+        os.makedirs("./models_rl")
     if not os.path.exists(os.path.join("./models_rl", str(args.env))):
         os.makedirs(os.path.join("./models_rl", str(args.env)))
     
@@ -68,7 +68,7 @@ def main(args):
                 config={
                     "env_name": args.env,
                     "seed": args.seed,
-                    "n_behavior_epochs": args.n_behavior_epochs,
+                    "n_behavior_epochs": 600,
                     "diffusion_steps": args.diffusion_steps,
                 })
     marginal_prob_std_fn = functools.partial(marginal_prob_std, device=args.device)
